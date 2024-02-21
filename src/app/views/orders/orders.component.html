@@ -1,0 +1,338 @@
+<!-- <mat-card class="full-width">
+    <mat-card-header style="flex-direction: column;">
+        <span style="flex-direction: row;">
+            <mat-card style="flex: 25%;">
+                <mat-card-title>
+                    <small>Total Amount</small>
+                    <span fxFlex></span>
+                    <mat-chip
+                        class="icon-chip" 
+                        color="warn" 
+                        selected="true"><mat-icon>trending_up</mat-icon></mat-chip>
+                </mat-card-title>
+                </mat-card>
+                <mat-card style="flex: 25%;">
+                <mat-card-title>
+                    <small>Total Amount</small>
+                    <span fxFlex></span>
+                    <mat-chip
+                        class="icon-chip" 
+                        color="warn" 
+                        selected="true"><mat-icon>trending_up</mat-icon></mat-chip>
+                </mat-card-title>
+                </mat-card>
+        </span>
+        <br>
+        <div style="flex: 100%;">
+            <input matInput placeholder="Enter the text" />
+            <button style="margin-left: 1%;" mat-raised-button color="primary" (click)="openAddOrderDialog()">Add Order (+)</button>
+        </div>
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+        <mat-table
+            class="mat-elevation-z8"
+            mat-table
+            [dataSource]="dataSource"
+            [multiTemplateDataRows]="true"
+            matSort
+            matSortDisableClear>
+
+            @for(column of listofcolumns; track column) {
+                @if(column.code === 'paid'){
+                    <ng-container matColumnDef="{{ column.code }}">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element[column.code] === true ? 'Yes' : 'No' }} </mat-cell>
+                    </ng-container>
+                }
+                @else{
+                    <ng-container matColumnDef="{{ column.code }}">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element[column.code] }} </mat-cell>
+                    </ng-container>
+                }
+            }
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="primary" (click)="openModifyOrderDialog(element)">Edit</button>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <mat-cell *matCellDef="let element" [attr.colspan]="listofcolumns.length" [@expandableRow]="element.id === expandedSymbol ? 'expanded' : 'collapsed'">
+                <div>
+                    <mat-table
+                        mat-table
+                        [dataSource]="element.itemList"
+                    >
+                    @for(column of listofitemcolumns; track column) {
+                        <ng-container matColumnDef="{{ column.code }}">
+                            <mat-header-cell *matHeaderCellDef>{{ column.name }}</mat-header-cell>
+                            @if(column.code === 'totalAmount'){
+                                <mat-cell *matCellDef="let item"> {{ item[column.code] }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef style="font-weight: bold;"> {{ getTotalCost(element.itemList) | number: '1.2' }} </mat-footer-cell>
+                            }
+                            @if(column.code === 'quantity'){
+                                <mat-cell *matCellDef="let item"> {{ item[column.code] }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef style="font-weight: bold;"> Grand Total: </mat-footer-cell>
+                            }
+                            @if(column.code === 'status'){
+                                <mat-cell *matCellDef="let item"> {{ item[column.code] | titlecase }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef style="font-weight: bold;"></mat-footer-cell>
+                            }
+                            @else{
+                                <mat-cell *matCellDef="let item"> {{ item[column.code] }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                            }
+                        </ng-container>
+                    }
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let item">
+                            @if(item.status === 'PENDING'){
+                                <button mat-raised-button color="accent" (click)="doneItem(item, element.id)">Done</button>
+                            }
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="itemColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: itemColumns;"></mat-row>
+                    <mat-footer-row *matFooterRowDef="itemColumns"></mat-footer-row>
+                    </mat-table>
+                </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="toggleExpandableSymbol(row.id)"></mat-row>
+            <mat-row 
+                class="expandable-row"
+                *matRowDef="let row; columns: ['expandedDetail'];">
+            </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[15, 20, 50, 100]" aria-label="Select page of users"></mat-paginator>
+    </mat-card-content>
+</mat-card>
+ -->
+ <div style="display: flex;">
+    <mat-card style="flex: 1;" class="bg-color1">
+        <mat-card-header style="font-weight: bold;">
+            Total Orders
+        </mat-card-header>
+        <mat-card-content>
+            <mat-chip class="bg-color2" highlighted>
+                {{findTotal('ALL').quantity}} pcs
+            </mat-chip>
+            <mat-chip class="bg-color2" highlighted>
+                {{findTotal('ALL').totalAmount}}
+            </mat-chip>
+        </mat-card-content>
+    </mat-card>
+    <mat-card style="flex: 1;" class="bg-color1">
+        <mat-card-header style="font-weight: bold;">
+            Total Pending Orders
+        </mat-card-header>
+        <mat-card-content>
+            <mat-chip class="bg-color2" highlighted>
+                {{findTotal('PENDING').quantity}} pcs
+            </mat-chip>
+            <mat-chip class="bg-color2" highlighted>
+                {{findTotal('PENDING').totalAmount}}
+            </mat-chip>
+        </mat-card-content>
+    </mat-card>
+    <mat-card style="flex: 1;" class="bg-color1">
+        <mat-card-header style="font-weight: bold;">
+            Total Paid Orders
+        </mat-card-header>
+        <mat-card-content>
+            <mat-chip class="bg-color2" highlighted>
+                {{findTotal('PAID').quantity}} pcs
+            </mat-chip>
+            <mat-chip class="bg-color2" highlighted>
+                {{findTotal('PAID').totalAmount}}
+            </mat-chip>
+        </mat-card-content>
+    </mat-card>
+ </div>
+ <hr>
+ <div style="display: flex;">
+    <mat-card style="flex: 1;" class="bg-color1">
+        <mat-card-content style="display: flex;">
+            <span style="flex: 1; margin: 5px; font-weight: bold;">Tiny Treat 
+                <mat-chip class="bg-color2" highlighted>{{findTotal('TT').quantity}} pcs</mat-chip>
+                <mat-chip class="bg-color2" highlighted>{{findTotal('TT').totalAmount}}</mat-chip>
+            </span>
+            <span style="flex: 1; margin: 5px; font-weight: bold;">Petite Delight 
+                <mat-chip class="bg-color2" highlighted>{{findTotal('PD').quantity}} pcs</mat-chip>
+                <mat-chip class="bg-color2" highlighted>{{findTotal('PD').totalAmount}}</mat-chip>
+            </span>
+            <span style="flex: 1; margin: 5px; font-weight: bold;">Midsize Marvel 
+                <mat-chip class="bg-color2" highlighted>{{findTotal('MM').quantity}} pcs</mat-chip>
+                <mat-chip class="bg-color2" highlighted>{{findTotal('MM').totalAmount}}</mat-chip>
+            </span>
+            <span style="flex: 1; margin: 5px; font-weight: bold;">Grand Delight 
+                <mat-chip class="bg-color2" highlighted>{{findTotal('GD').quantity}} pcs</mat-chip>
+                <mat-chip class="bg-color2" highlighted>{{findTotal('GD').totalAmount}}</mat-chip>
+            </span>
+        </mat-card-content>
+    </mat-card>
+ </div>
+ <hr>
+ <div>
+    <mat-card style="background-color: rgb(136, 101, 49);">
+        <mat-card-header style="background-color: rgb(136, 101, 49);">
+            <!-- <button matTooltip="Reload Orders" mat-icon-button style="color: beige;" (click)="reload()"><mat-icon>refresh</mat-icon></button> -->
+            <div [formGroup]="orderForm" style="flex: 1;">
+                <mat-form-field appearance="outline" style="height: 40px; font-weight: bold;">
+                    <mat-label>Enter a pickup date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Start date" formControlName="start">
+                        <input matEndDate placeholder="End date" formControlName="end">
+                    </mat-date-range-input>
+                    <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <span style="margin: 5px;"></span>
+                <button style="margin-left: 1%; height: auto;" mat-raised-button style="background-color: rgb(228, 190, 135)" (click)="search()">Search<mat-icon>search</mat-icon></button>
+                <span style="margin: 5px;"></span>
+                <button style="margin-left: 1%; height: auto;" mat-raised-button style="background-color: rgb(228, 190, 135)" (click)="clear()">Clear<mat-icon>clear</mat-icon></button>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <button style="margin-left: 1%;" mat-raised-button style="background-color: rgb(228, 190, 135)" (click)="openAddOrderDialog()">Add Order<mat-icon>add</mat-icon></button>
+            </div>
+        </mat-card-header>
+        <br>
+        <mat-card-content style="background-color: rgb(136, 101, 49);">
+            <mat-table style="background-color: beige;"
+            class="mat-elevation-z8"
+            mat-table
+            [dataSource]="dataSource"
+            multiTemplateDataRows
+            matSort
+            matSortDisableClear>
+
+            @for(column of listofcolumns; track column) {
+                <ng-container matColumnDef="{{ column.code }}">
+                    @if(column.code === 'pickupDate'){
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ convertDate(element[column.code]) }} </mat-cell>
+                    }
+                    @if(column.code === 'paid'){
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            @if(element[column.code] === false){
+                                <mat-chip style="background-color: brown;" highlighted>No</mat-chip>
+                                <button matTooltip="Mark as paid" mat-icon-button (click)="markAsPaidorUnPaid(element, true)"><mat-icon>thumb_up</mat-icon></button>
+                            }
+                            @else{
+                                <mat-chip style="background-color: rgba(165, 42, 42, 0.5);" color="primary" highlighted>Yes</mat-chip>
+                                <button matTooltip="Revert to unpaid" mat-icon-button (click)="markAsPaidorUnPaid(element, false)"><mat-icon>history</mat-icon></button>
+                            }
+                        </mat-cell>
+                    }
+                    @if(column.code === 'status'){
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            @switch(element[column.code]){
+                                @case('PENDING'){
+                                    <mat-chip color="warn" highlighted>{{ element[column.code] | titlecase }}</mat-chip>
+                                }
+                                @case('DONE'){
+                                    <mat-chip style="background-color: brown;" highlighted>{{ element[column.code] | titlecase }}</mat-chip>
+                                    <button matTooltip="Delivered" mat-icon-button (click)="updateOrderStatus(element, 'DELIVERED')"><mat-icon>delivery_dining</mat-icon></button>
+                                }
+                                @case('DELIVERED'){
+                                    <mat-chip style="background-color: rgba(165, 42, 42, 0.5);" highlighted>{{ element[column.code] | titlecase }}</mat-chip>
+                                }
+                            }
+                            
+                        </mat-cell>
+                    }
+                    @else{
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element[column.code] }} </mat-cell>
+                    }
+                </ng-container>
+            }
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <!-- <button mat-raised-button style="background-color: rgb(228, 190, 135);" (click)="openModifyOrderDialog(element)">Edit</button> -->
+                    <button matTooltip="Modify" mat-icon-button (click)="openModifyOrderDialog(element)"><mat-icon>edit</mat-icon></button>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <mat-cell *matCellDef="let element" [attr.colspan]="listofcolumns.length" [@expandableRow]="element.id === expandedSymbol ? 'expanded' : 'collapsed'">
+                <div style="flex: 1;">
+                    <mat-table style="background-color: rgb(218, 218, 197)"
+                        mat-table
+                        [dataSource]="element.itemList"
+                    >
+                    @for(column of listofitemcolumns; track column) {
+                        <ng-container matColumnDef="{{ column.code }}">
+                            <mat-header-cell *matHeaderCellDef>{{ column.name }}</mat-header-cell>
+                            @if(column.code === 'price'){
+                                <mat-cell style="font-size: small;" *matCellDef="let item"> {{ item[column.code] }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef style="font-weight: bold;"> Grand Total: </mat-footer-cell>
+                            }
+                            @if(column.code === 'quantity'){
+                                <mat-cell style="font-size: small;" *matCellDef="let item"> {{ item[column.code] }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef style="font-weight: bold;"> {{ getTotalItems(element.itemList) }} </mat-footer-cell>
+                            }
+                            @if(column.code === 'totalAmount'){
+                                <mat-cell style="font-size: small;" *matCellDef="let item"> {{ item[column.code] }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef style="font-weight: bold;"> {{ getTotalCost(element.itemList) | number: '1.2' }} </mat-footer-cell>
+                            }
+                            @if(column.code === 'status'){
+                                <mat-cell *matCellDef="let item">
+                                    @switch(item[column.code]){
+                                        @case('PENDING'){
+                                            <mat-chip color="warn" highlighted>{{ item[column.code] | titlecase }}</mat-chip>
+                                            <button matTooltip="Done" mat-icon-button (click)="doneItem(item, element.id)"><mat-icon>check_circle</mat-icon></button>
+                                        }
+                                        @case('DONE'){
+                                            <mat-chip style="background-color: brown;" highlighted>{{ item[column.code] | titlecase }}</mat-chip>
+                                        }
+                                    }
+                                </mat-cell>
+                                <mat-footer-cell *matFooterCellDef style="font-weight: bold;"></mat-footer-cell>
+                            }
+                            @else{
+                                <mat-cell style="font-size: small;" *matCellDef="let item"> {{ item[column.code] }} </mat-cell>
+                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                            }
+                        </ng-container>
+                    }
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let item">
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="itemColumns"></mat-header-row>
+                    <mat-row class="example-element-row" *matRowDef="let row; columns: itemColumns;"></mat-row>
+                    <mat-footer-row *matFooterRowDef="itemColumns"></mat-footer-row>
+                    </mat-table>
+                </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row class="example-element-row" *matRowDef="let row; columns: displayedColumns;" (dblclick)="toggleExpandableSymbol(row.id)"></mat-row>
+            <mat-row 
+                class="expandable-row"
+                *matRowDef="let row; columns: ['expandedDetail'];">
+            </mat-row>
+        </mat-table>
+        <mat-paginator style="background-color: beige; font-weight: bold;" [pageSizeOptions]="[15, 20, 50, 100]" aria-label="Select page of orders"></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+ </div>

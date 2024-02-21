@@ -1,0 +1,52 @@
+<form [formGroup]="addItemForm">
+    <h2 mat-dialog-title>Add Item Form</h2>
+    <mat-dialog-content>
+        <div class="container flex-column flex-wrap">
+            <div class="fx-flex">
+                <mat-form-field class="form-field">
+                    <mat-label>Choose an option</mat-label>
+                    <mat-select
+                        name="item"
+                        formControlName="item"
+                        placeholder="Please select an item">
+                        @for(item of listofitems; track item) {
+                            <mat-option value="{{item.code}}" [disabled]="!isAvailable(item.status)">{{item.code}} - {{item.description}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="fx-flex">
+                <button 
+                    mat-button
+                    mat-raised-button 
+                    color="primary"
+                    [disabled]="!isValidToSub()"
+                    (click)="subQty()">-</button>
+                <mat-form-field class="quantity-field">
+                    <input
+                        matInput
+                        name="quantity"
+                        formControlName="quantity"
+                        maxlength="3">
+                </mat-form-field>
+                <button 
+                    mat-button
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="!isValidToAdd()"
+                    (click)="addQty()">+</button>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button
+            mat-button
+            mat-raised-button 
+            color="primary"
+            [disabled]="addItemForm.invalid" 
+            (click)="addItem()">Add</button>
+        <button 
+            mat-button
+            (click)="cancel()">Cancel</button>
+    </mat-dialog-actions>
+</form>

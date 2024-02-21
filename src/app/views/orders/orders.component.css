@@ -1,0 +1,151 @@
+  /* .mat-table {
+    width: 100%;
+  } */
+
+  /* .mat-chip[mat-sm-chip] {
+    padding: 4px 6px 4px 6px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    line-height: 12px !important;
+    max-height: 20px;
+    box-sizing: border-box;
+  }
+
+  .mat-icon-button[mat-sm-button] {
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+}
+
+.mat-icon-button[mat-xs-button] {
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+}
+.mat-icon-button[mat-xs-button] .mat-icon {
+    font-size: 16px;
+    line-height: 20px !important;
+    height: 20px;
+    width: 20px;
+} */
+
+  /* .container {
+    display: flex;
+  }
+
+  .flex-row {
+    flex-direction: row;
+  }
+
+  .flex-column {
+    flex-direction: column;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .fx-flex {
+    flex:50%
+  }
+
+  .full-width {
+    width: 100% !important;
+  }
+
+  .half-width {
+    width: 50% !important;
+  }
+
+  .flex-fit {
+    width: auto;
+  }
+
+  .form-field {
+    min-width: 100%;
+  }
+
+  .mat-mdc-table {
+    width: 100%;
+    max-height: 200px;
+    overflow: auto;
+  }
+
+  tr.mat-mdc-footer-row td {
+    font-weight: bold;
+  }
+
+  .example-container {
+    position: relative;
+  }
+  
+  .example-table-container {
+    position: relative;
+    min-height: 200px;
+    max-height: 400px;
+    overflow: auto;
+  }
+
+  .example-card {
+    max-width: 600px;
+  }
+
+  .page-container {
+    display: flex;
+    height: 100%;
+  } */
+
+  table {
+    width: 100%;
+  }
+
+  .mat-header-cell {
+    .mat-sort-header-sorted {
+      color: black;
+    }
+  }
+  
+  .mat-row {
+    border-bottom: 0;
+  
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, .1);
+    }
+  }
+  
+  .expandable-row {
+    border-bottom: 0px solid rgba(0, 0, 0, .1);
+    background-color: #fafafa;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  mat-row.example-element-row:not(.example-expanded-row):hover {
+    background: rgb(228, 190, 135);
+    font-weight: bold;
+  }
+  
+  mat-row.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+
+  .bg-color1{
+    background-color: rgb(243, 213, 163);
+  }
+
+  .bg-color2{
+    background-color: rgb(127, 97, 59);
+  }
+
+  mat-chip.bg-color2 {
+    background-color: rgb(127, 97, 59);
+  }
+
+  ::ng-deep .mat-form-field {
+    font-size: 12px;
+}
+
+::placeholder {
+  color: darkgray;
+}

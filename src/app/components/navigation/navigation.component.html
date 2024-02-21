@@ -1,0 +1,16 @@
+<mat-nav-list>
+    @for (menu of menuList; track menu) {
+        <div>
+            <mat-list-item>
+                <nav>
+                    <a routerLink="{{menu.path}}">
+                        <span style="display: flex; color: black;">
+                            <mat-icon style="margin-left: 10px;">{{ menu.icon }}</mat-icon>
+                            <span style="margin-left: 5px; font-weight: bold;">{{ menu.name }}</span>
+                        </span>
+                    </a>
+                </nav>
+            </mat-list-item>
+        </div>
+    }
+</mat-nav-list>

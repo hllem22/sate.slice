@@ -1,0 +1,51 @@
+<!-- <mat-sidenav-container class="app-side-nav-container mat-drawer-transition">
+    <mat-sidenav #sidenav role="navigation" mode="side" [opened]="openMenu" class="sidebar-panel">
+        <div id="scroll-area" class="navigation-hold" fxLayout="column">
+            <div class="branding default-bg">
+                <img src="assets/images/logo.png" alt="" class="app-logo">
+                <img 
+                    src="assets/images/logo-text.png" 
+                    alt="" 
+                    class="app-logo-text">
+            </div>
+            
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        
+        Dashboard
+    </mat-sidenav-content>
+</mat-sidenav-container> -->
+<!-- <app-topbar (sidenavToggle)="clickMenu()"></app-topbar> -->
+<!-- <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <p>Auto-resizing sidenav</p>
+        @if (showFiller) {
+        <p>Lorem, ipsum dolor sit amet consectetur.</p>
+        }
+        <button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+        </button>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+        </button>
+    </div>
+
+</mat-drawer-container> -->
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="side" [opened]="openMenu">
+        <div class="app-user-photo">
+            <img ngSrc="/assets/images/sslogo.png" alt="Sate.Slice logo" width="199" height="199" priority/>
+        </div>
+        <div>
+            <app-navigation></app-navigation>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <!-- <app-topbar></app-topbar> -->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

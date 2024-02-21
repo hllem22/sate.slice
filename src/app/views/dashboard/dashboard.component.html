@@ -1,0 +1,218 @@
+<!-- <mat-card>
+    <mat-card-header>
+
+    </mat-card-header>
+    <mat-card-content>
+        <div class="mat-box-shadow">
+            <ngx-datatable
+                class="material bg-white fullscreen" #myTable
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="50"
+                [externalPaging]="true"
+                [count]="page.totalRecord"
+                [offset]="(page.pageNumber - 1)"
+                [limit]="page.size"
+                [rows]="rows"
+                [columns]="columns"
+                (page)='setPage($event)'
+                >
+                <ngx-datatable-column name="Order#" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span class="text-10">12345647898</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="First Name" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span class="text-10">12345647898</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Last Name" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span class="text-10">12345647898</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Address" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span class="text-10">12345647898</span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="City" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span class="text-10">12345647898</span>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </mat-card-content>
+</mat-card>
+ -->
+<!-- <div class="wrapper">
+    <header class="header">
+        <h1>
+            Header
+        </h1>
+    </header>
+    <article class="main">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est tempora, adipisci minima consequuntur nostrum expedita sunt quasi sapiente modi totam culpa sed unde aliquid mollitia quas sequi nemo deserunt autem.</p>
+    </article>
+    <aside class="aside aside1">
+        <h1>
+            Aside1
+        </h1>
+    </aside>
+    <aside class="aside aside2">
+        <h1>
+            Aside2
+        </h1>
+    </aside>
+    <footer class="footer">
+        <h1>
+            Footer
+        </h1>
+    </footer>
+</div> -->
+<div class="wrapper">
+    <mat-card style="flex: 1;" class="bg-color2">
+        <mat-card-header style="font-size: xx-large; font-weight: bolder;">
+            
+        </mat-card-header>
+    </mat-card>
+    <div style="display: flex;">
+        <mat-card style="flex: 1;" class="bg-color1">
+            <mat-card-header style="font-size: xx-large; font-weight: bolder;">
+                Today's Orders
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                @for(order of orders; track order){
+                    <mat-list style="text-align: left;">
+                        <mat-list-item style="display: contents;">
+                            <span matListItemTitle style="font-size: medium; font-weight: bold;">{{order.firstName + ' ' + order.lastName}}</span>
+                            @for(item of order.itemList; track item){
+                                <span style="font-size: small; font-weight: bold;">{{item.quantity + ' ' + item.description}}</span><br>
+                            }
+                        </mat-list-item>
+                    </mat-list>
+                }
+                <br>
+                <hr>
+                <mat-card style="flex: 1;" class="bg-color2">
+                    <mat-card-header style="font-size: xx-large; font-weight: bolder; align-items: baseline;">
+                        Total
+                        <span style="font-size: medium; font-weight: bold; margin-left: 5px;">
+                            of {{getTotalLoafs(totalOrders) | number: '1.1-1'}} Loaf Pans
+                       </span>
+                    </mat-card-header>
+                    <mat-card-content>
+                        @for(totalOrder of totalOrders; track totalOrder){
+                            @if(findTotal(totalOrder.code).quantity > 0){
+                                <mat-list style="text-align: left;">
+                                    <mat-list-item style="display: contents;">
+                                        <span matListItemTitle style="font-size: medium; font-weight: bold;">{{findTotal(totalOrder.code).quantity + ' ' + totalOrder.description}}</span>
+                                        @for(item of totalOrder.itemList; track item){
+                                            @if(item.quantity > 0){
+                                                <span style="font-size: small; font-weight: bold;">{{item.quantity + ' ' + item.description}}</span><br>
+                                            }
+                                        }
+                                    </mat-list-item>
+                                </mat-list>
+                            }
+                        }
+                    </mat-card-content>
+                </mat-card>
+            </mat-card-content>
+        </mat-card>
+        <mat-card style="flex: 1;" class="bg-color1">
+            <mat-card-header style="font-size: xx-large; font-weight: bolder;">
+                Tomorrow's Orders
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                @for(order of tomorrowOrders; track order){
+                    <mat-list style="text-align: left;">
+                        <mat-list-item style="display: contents;">
+                            <span matListItemTitle style="font-size: medium; font-weight: bold;">{{order.firstName + ' ' + order.lastName}}</span>
+                            @for(item of order.itemList; track item){
+                                <span style="font-size: small; font-weight: bold;">{{item.quantity + ' ' + item.description}}</span><br>
+                            }
+                        </mat-list-item>
+                    </mat-list>
+                }
+                <br>
+                <hr>
+                <mat-card style="flex: 1;" class="bg-color2">
+                    <mat-card-header style="font-size: xx-large; font-weight: bolder; align-items: baseline;">
+                        Total
+                        <span style="font-size: medium; font-weight: bold; margin-left: 5px;">
+                             of {{getTotalLoafs(tomorrowTotalOrders) | number: '1.1-1'}} Loaf Pans
+                        </span>
+                    </mat-card-header>
+                    <mat-card-content>
+                        @for(tomorrowTotalOrder of tomorrowTotalOrders; track tomorrowTotalOrder){
+                            @if(findTomorrowTotal(tomorrowTotalOrder.code).quantity > 0){
+                                <mat-list style="text-align: left;">
+                                    <mat-list-item style="display: contents;">
+                                        <span matListItemTitle style="font-size: medium; font-weight: bold;">{{findTomorrowTotal(tomorrowTotalOrder.code).quantity + ' ' + tomorrowTotalOrder.description}}</span>
+                                        @for(item of tomorrowTotalOrder.itemList; track item){
+                                            @if(item.quantity > 0){
+                                                <span style="font-size: small; font-weight: bold;">{{item.quantity + ' ' + item.description}}</span><br>
+                                            }
+                                        }
+                                    </mat-list-item>
+                                </mat-list>
+                            }
+                            
+                        }
+                    </mat-card-content>
+                </mat-card>
+            </mat-card-content>
+        </mat-card>
+        <mat-card style="flex: 1;" class="bg-color1">
+            <mat-card-header style="font-size: xx-large; font-weight: bolder;">
+                {{getPickupDate()}} Orders
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                @for(order of nextOrders; track order){
+                    <mat-list style="text-align: left;">
+                        <mat-list-item style="display: contents;">
+                            <span matListItemTitle style="font-size: medium; font-weight: bold;">{{order.firstName + ' ' + order.lastName}}</span>
+                            @for(item of order.itemList; track item){
+                                <span style="font-size: small; font-weight: bold;">{{item.quantity + ' ' + item.description}}</span><br>
+                            }
+                        </mat-list-item>
+                    </mat-list>
+                }
+                <br>
+                <hr>
+                <mat-card style="flex: 1;" class="bg-color2">
+                    <mat-card-header style="font-size: xx-large; font-weight: bolder; align-items: baseline;">
+                        Total
+                        <span style="font-size: medium; font-weight: bold; margin-left: 5px;">
+                             of {{getTotalLoafs(nextTotalOrders) | number: '1.1-1'}} Loaf Pans
+                        </span>
+                    </mat-card-header>
+                    <mat-card-content>
+                        @for(nexTotalOrder of nextTotalOrders; track nexTotalOrder){
+                            @if(findNextTotalOrder(nexTotalOrder.code).quantity > 0){
+                                <mat-list style="text-align: left;">
+                                    <mat-list-item style="display: contents;">
+                                        <span matListItemTitle style="font-size: medium; font-weight: bold;">{{findNextTotalOrder(nexTotalOrder.code).quantity + ' ' + nexTotalOrder.description}}</span>
+                                        @for(item of nexTotalOrder.itemList; track item){
+                                            @if(item.quantity > 0){
+                                                <span style="font-size: small; font-weight: bold;">{{item.quantity + ' ' + item.description}}</span><br>
+                                            }
+                                        }
+                                    </mat-list-item>
+                                </mat-list>
+                            }
+                            
+                        }
+                    </mat-card-content>
+                </mat-card>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

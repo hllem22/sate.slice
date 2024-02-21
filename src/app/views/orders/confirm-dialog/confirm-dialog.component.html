@@ -1,0 +1,18 @@
+<!-- <h2 mat-dialog-title>Done Item</h2>
+<mat-dialog-content>
+    <p>Do you really want to done this item from Order# {{this.data.orderId}} ?</p>
+    <mat-label>{{this.data.item.quantity}}x {{this.data.item.description}}</mat-label>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button mat-button color="primary" (click)="confirm()" cdkFocusInitial>Yes</button>
+    <button mat-button (click)="onNoClick()">No</button>
+</mat-dialog-actions> -->
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+    <p>{{ data.message }}</p>
+    <mat-label>{{ data.label }}</mat-label>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button mat-button color="primary" (click)="dialogRef.close(true)" cdkFocusInitial>Yes</button>
+    <button mat-button (click)="dialogRef.close(false)">No</button>
+</mat-dialog-actions>
